@@ -22,8 +22,8 @@ namespace PseudoInvese
         {
             System.Random random = new System.Random();
 
-            int satir = 3;
-            int sutun = 4;
+            int satir = 4;
+            int sutun = 5;
 
             while (satir == sutun)
             {
@@ -125,6 +125,32 @@ namespace PseudoInvese
                     }
 
                 }
+                else if (matrisc.GetLength(0) == 4 && matrisc.GetLength(1) == 4)
+                {
+                    matrisdi = inverse_4(matrisc);
+                    for (int i = 0; i < 4; i++)
+                    {
+                        for (int j = 0; j < 4; j++)
+                        {
+                            label3.Text += matrisdi[i, j] + " ";
+                        }
+                        label3.Text += "\n";
+                    }
+
+                    double[,] inverse = new double[sutun, satir];
+                    inverse = multiplication(matrist, matrisdi);
+                    int y = inverse.GetLength(0);
+                    int f = inverse.GetLength(1);
+                    for (int i = 0; i < y; i++)
+                    {
+                        for (int j = 0; j < f; j++)
+                        {
+                            label5.Text += inverse[i, j] + " ";
+                        }
+                        label5.Text += "\n";
+                    }
+
+                }
             }
             else if (satir > sutun)
             {
@@ -161,20 +187,73 @@ namespace PseudoInvese
                         }
                         label3.Text += "\n";
                     }
+                    double[,] inverse = new double[sutun, satir];
+                    inverse = multiplication(matrisdi, matrist);
+                    int y = inverse.GetLength(0);
+                    int f = inverse.GetLength(1);
+                    for (int i = 0; i < y; i++)
+                    {
+                        for (int j = 0; j < f; j++)
+                        {
+                            label5.Text += inverse[i, j] + " ";
+                        }
+                        label5.Text += "\n";
+                    }
 
                 }
-                double[,] inverse = new double[sutun, satir];
-                inverse = multiplication(matrisdi, matrist);
-                int y = inverse.GetLength(0);
-                int f = inverse.GetLength(1);
-                for (int i = 0; i < y; i++)
+                else if (matrisc.GetLength(0) == 3 && matrisc.GetLength(1) == 3)
                 {
-                    for (int j = 0; j < f; j++)
+                    matrisdi = inverse_3(matrisc);
+                    for (int i = 0; i < 3; i++)
                     {
-                        label5.Text += inverse[i, j] + " ";
+                        for (int j = 0; j < 3; j++)
+                        {
+                            label3.Text += matrisdi[i, j] + " ";
+                        }
+                        label3.Text += "\n";
                     }
-                    label5.Text += "\n";
+
+                    double[,] inverse = new double[sutun, satir];
+                    inverse = multiplication(matrisdi, matrist);
+                    int y = inverse.GetLength(0);
+                    int f = inverse.GetLength(1);
+                    for (int i = 0; i < y; i++)
+                    {
+                        for (int j = 0; j < f; j++)
+                        {
+                            label5.Text += inverse[i, j] + " ";
+                        }
+                        label5.Text += "\n";
+                    }
+
                 }
+                else if (matrisc.GetLength(0) == 4 && matrisc.GetLength(1) == 4)
+                {
+                    matrisdi = inverse_4(matrisc);
+                    for (int i = 0; i <4; i++)
+                    {
+                        for (int j = 0; j < 4; j++)
+                        {
+                            label3.Text += matrisdi[i, j] + " ";
+                        }
+                        label3.Text += "\n";
+                    }
+
+                    double[,] inverse = new double[sutun, satir];
+                    inverse = multiplication(matrisdi, matrist);
+                    int y = inverse.GetLength(0);
+                    int f = inverse.GetLength(1);
+                    for (int i = 0; i < y; i++)
+                    {
+                        for (int j = 0; j < f; j++)
+                        {
+                            label5.Text += inverse[i, j] + " ";
+                        }
+                        label5.Text += "\n";
+                    }
+
+                }
+
 
 
             }
@@ -274,7 +353,42 @@ namespace PseudoInvese
             return matrix3;
             
         }
+        public double[,] inverse_4(double[,] matrix)
+        {
+            double a_00 = (matrix[1, 1] * matrix[2, 2] * matrix[3, 3] + matrix[1,2] * matrix[2,3] * matrix[3,1] + matrix[1,3] * matrix[2,1] * matrix[3,2]) - (matrix[1, 1] * matrix[2, 3] * matrix[3, 2] + matrix[1,2] * matrix[2,1] * matrix[3,3] + matrix[1, 3] * matrix[2, 2] * matrix[3, 1]);
+            double a_01 = (matrix[0,1] * matrix[2, 3] * matrix[3, 2] + matrix[0,2] * matrix[2,1] * matrix[3, 3] + matrix[0,3] * matrix[2, 2] * matrix[3,1]) - (matrix[0, 1] * matrix[2, 2] * matrix[3, 3] + matrix[0,2] * matrix[2,3] * matrix[3,1] + matrix[0, 3] * matrix[2,1] * matrix[3,2]);
+            double a_02 = (matrix[0,1] * matrix[1,2] * matrix[3, 3] + matrix[0,2] * matrix[1,3] * matrix[3,1] + matrix[0,3] * matrix[1, 1] * matrix[3,2]) - (matrix[0, 1] * matrix[1, 3] * matrix[3, 2] + matrix[0,2] * matrix[1, 1] * matrix[3,3] + matrix[0, 3] * matrix[1, 2] * matrix[3,1]);
+            double a_03 = (matrix[0,1] * matrix[1,3] * matrix[2, 2] + matrix[0,2] * matrix[1,1] * matrix[2,3] + matrix[0,3] * matrix[1, 2] * matrix[2, 1]) - (matrix[0,1] * matrix[1,2] * matrix[2,3] + matrix[0,2] * matrix[1,3] * matrix[2,1] + matrix[0, 3] * matrix[1, 1] * matrix[2, 2]);
+
+            double a_10 = (matrix[1,0] * matrix[2, 3] * matrix[3, 2] + matrix[1,2] * matrix[2,0] * matrix[3,3] + matrix[1,3] * matrix[2, 2] * matrix[3,0]) - (matrix[1,0] * matrix[2, 2] * matrix[3,3] + matrix[1,2] * matrix[2,3] * matrix[3,0] + matrix[1, 3] * matrix[2,0] * matrix[3,2]);
+            double a_11 = (matrix[0, 0] * matrix[2, 2] * matrix[3, 3] + matrix[0,2] * matrix[2,3] * matrix[3,0] + matrix[0,3] * matrix[2,0] * matrix[3,2]) - (matrix[0, 0] * matrix[2,3] * matrix[3, 2] + matrix[0,2] * matrix[2,0] * matrix[3, 3] + matrix[0, 3] * matrix[2, 2] * matrix[3, 0]);
+            double a_12 = (matrix[0, 0] * matrix[1, 3] * matrix[3, 2] + matrix[0,2] * matrix[1,0] * matrix[3,3] + matrix[0,3] * matrix[1,2] * matrix[3,0]) - (matrix[0, 0] * matrix[1,2] * matrix[3,3] + matrix[0,2] * matrix[1,3] * matrix[3,0] + matrix[0, 3] * matrix[1,0] * matrix[3,2]);
+            double a_13 = (matrix[0, 0] * matrix[1,2] * matrix[2,3] + matrix[0,2] * matrix[1,3] * matrix[2,0] + matrix[0,3] * matrix[1,0] * matrix[2, 2]) - (matrix[0,0] * matrix[1,3] * matrix[2,2] + matrix[0, 2] * matrix[1,0] * matrix[2,3] + matrix[0,3] * matrix[1,2] * matrix[2, 0]);
+
+            double a_20 = (matrix[1,0] * matrix[2,1] * matrix[3, 3] + matrix[1, 1] * matrix[2,3] * matrix[3,0] + matrix[1,3] * matrix[2,0] * matrix[3,1]) - (matrix[1, 0] * matrix[2,3] * matrix[3, 1] + matrix[1, 1] * matrix[2,0] * matrix[3, 3] + matrix[1,3] * matrix[2,1] * matrix[3,0]);
+            double a_21 = (matrix[0, 0] * matrix[2,3] * matrix[3, 1] + matrix[0,1] * matrix[2,0] * matrix[3, 3] + matrix[0,3] * matrix[2,1] * matrix[0,3]) - (matrix[0, 0] * matrix[2,1] * matrix[3, 3] + matrix[0,1] * matrix[2,3] * matrix[3,0] + matrix[0,3] * matrix[2,0] * matrix[3,1]);
+            double a_22 = (matrix[0, 0] * matrix[1, 1] * matrix[3, 3] + matrix[0,1] * matrix[1,3] * matrix[3,0] + matrix[0,3] * matrix[1,0] * matrix[3,1]) - (matrix[0, 0] * matrix[1,3] * matrix[3, 1] + matrix[0,1] * matrix[1,0] * matrix[3,3] + matrix[0,3] * matrix[1,1] * matrix[3,0]);
+            double a_23 = (matrix[0, 0] * matrix[1,3] * matrix[2,1] + matrix[0,1] * matrix[1,0] * matrix[2,3] + matrix[0,3] * matrix[1, 1] * matrix[2,0]) - (matrix[0, 0] * matrix[1, 1] * matrix[2, 3] + matrix[0,1] * matrix[1,3] * matrix[2, 0] + matrix[0,3] * matrix[1,0] * matrix[2,1]);
+
+
+            double a_30 = (matrix[1,0] * matrix[2,2] * matrix[3,1] + matrix[1, 1] * matrix[2, 0] * matrix[3,2] + matrix[1,2] * matrix[2,1] * matrix[3,0]) - (matrix[1,0] * matrix[2,1] * matrix[3,2] + matrix[1, 1] * matrix[2, 2] * matrix[3,0] + matrix[1,2] * matrix[2,0] * matrix[3, 1]);
+            double a_31 = (matrix[0, 0] * matrix[2,1] * matrix[3,2] + matrix[0,1] * matrix[2, 2] * matrix[3,0] + matrix[0,2] * matrix[2,0] * matrix[3,1]) - (matrix[0, 0] * matrix[2,2] * matrix[3,1] + matrix[0,1] * matrix[2, 0] * matrix[3,2] + matrix[0,2] * matrix[2,1] * matrix[3,0]);
+            double a_32 = (matrix[0, 0] * matrix[1, 2] * matrix[3,1] + matrix[0,1] * matrix[1,0] * matrix[3,2] + matrix[0,2] * matrix[1, 1] * matrix[3,0]) - (matrix[0, 0] * matrix[1, 1] * matrix[3, 2] + matrix[0,1] * matrix[1,2] * matrix[3, 0] + matrix[0,2] * matrix[1,0] * matrix[3,1]);
+            double a_33 = (matrix[0, 0] * matrix[1, 1] * matrix[2, 2] + matrix[0,1] * matrix[1,2] * matrix[2,0] + matrix[0,2] * matrix[1,0] * matrix[2,1]) - (matrix[0, 0] * matrix[1, 2] * matrix[2, 1] + matrix[0,1] * matrix[1,0] * matrix[2, 2] + matrix[0,2] * matrix[1, 1] * matrix[2,0]);
+
+            double[,] matrix3 = new double[4, 4] { { a_00, a_01, a_02, a_03 }, { a_10, a_11, a_12, a_13 }, { a_20, a_21, a_22, a_23 }, { a_30, a_31, a_32, a_33 } };
+            double a = DET(matrix, matrix.GetLength(0));
+            label6.Text += a;
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    matrix3[i, j] = (1 / a) * matrix3[i, j];
+                }
+                label3.Text += "\n";
+            }
+            return matrix3;
+        }
+
     }
 }
-
-
