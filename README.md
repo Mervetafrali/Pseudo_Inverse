@@ -1,4 +1,4 @@
-# Yazlab_2
+# Sözde Ters
 
 Proje: KARE OLMAYAN MATRİSİN SÖZDE TERSİNİ BULMA
 
